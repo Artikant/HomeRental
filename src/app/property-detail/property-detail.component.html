@@ -1,0 +1,310 @@
+<div class="container centered-container">
+ <div class="progress-container mb-4">
+    <div class="progress-wrapper progress">
+      <!-- <ngb-progressbar [value]="(step-1+1) * 20" [max]="100" type="success"></ngb-progressbar> -->
+
+    </div>
+    <div class="step-icons">
+      <div class="text-center mx-2" *ngFor="let s of [1, 2, 3, 4]">
+        <div class="circle-img mb-2" [class.active]="step >= s">
+          <img [src]="getStepImage(s)" alt="Step {{ s }}" class="step-image" />
+        </div>
+        <p>Step {{ s }}</p>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="step === 1">
+    <h2>Step 1: Property Details</h2>
+    <br>
+    <div class="card mb-3">
+      <div class="card-header">
+        <h5>{{ propertyDetails?.propertyTitle }}</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div *ngFor="let image of propertyDetails?.propertyImages" class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+              <img [src]="image.imageURL" class="" alt="Property Image">
+            </div>
+          </div>
+        </div>
+        <h5 class="card-title">Property Type: {{ propertyDetails?.propertyType }}</h5>
+        <p class="card-text">{{ propertyDetails?.propertyDescription }}</p>
+        <ul class="list-group list-group-flush">
+          <h5>Property Details:</h5>
+          <li class="list-group-item">
+            <strong>Address:</strong> {{ propertyDetails?.propertyAddress }}, {{ propertyDetails?.propertyCity }}, {{ propertyDetails?.propertyState }}, {{ propertyDetails?.propertyPostalCode }}, {{ propertyDetails?.propertyCountry }}
+          </li>
+          <li class="list-group-item"><strong>Bedrooms:</strong> {{ propertyDetails?.propertyBedrooms }}</li>
+          <li class="list-group-item"><strong>Bathrooms:</strong> {{ propertyDetails?.propertyBathrooms }}</li>
+          <li class="list-group-item"><strong>Price per Month:</strong> {{ propertyDetails?.propertyPricePerMonth }}</li>
+          <li class="list-group-item"><strong>Availability Status:</strong> {{ propertyDetails?.propertyAvailabilityStatus }}</li>
+        </ul>
+        <h5 class="mt-3">Amenities:</h5>
+        <ul class="list-group list-group-flush">
+          <li *ngFor="let amenity of propertyDetails?.amenities" class="list-group-item">{{ amenity }}</li>
+        </ul>
+        <h5 class="mt-3">Reviews</h5>
+        <div *ngFor="let review of propertyDetails?.reviews" class="card mt-2">
+          <div class="card-body">
+            <h6 class="card-title">User ID: {{ review?.userId }}</h6>
+            <p class="card-text">{{ review?.reviewText }}</p>
+            <p class="card-text"><small class="text-muted">Rating: {{ review?.rating }}</small></p>
+            <p class="card-text"><small class="text-muted">Created at: {{ review?.createdAt }}</small></p>
+          </div>
+        </div>
+        <h5 class="mt-3">Seller Information</h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><strong>Name:</strong> {{ propertyDetails?.sellerName }}</li>
+          <li class="list-group-item"><strong>Contact:</strong> {{ propertyDetails?.sellerContact }}</li>
+        </ul>
+      </div>
+    </div>
+    <button class="btn btn-dark m-2" (click)="nextStep()">Checked Details</button>
+  </div>
+
+  <!-- <div *ngIf="step === 2">
+    <h2>Step 2: Rental Request Form</h2>
+    <form id="rentalRequestForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" class="form-control" id="fullName" name="fullName" required [(ngModel)]="rentalRequest.fullName">
+      </div>
+      <div class="form-group">
+        <label for="occupation">Occupation</label>
+        <input type="text" class="form-control" id="occupation" name="occupation" [(ngModel)]="rentalRequest.occupation">
+      </div>
+      <div class="form-group">
+        <label for="contactNumber">Contact Number</label>
+        <input type="tel" class="form-control" id="contactNumber" name="contactNumber" required [(ngModel)]="rentalRequest.contactNumber">
+      </div>
+      <div class="form-group">
+        <label for="rentalHistory">Rental History</label>
+        <textarea class="form-control" id="rentalHistory" name="rentalHistory" [(ngModel)]="rentalRequest.rentalHistory"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="pets">Do you have pets?</label>
+        <input type="text" class="form-control" id="pets" name="pets" [(ngModel)]="rentalRequest.pets">
+      </div>
+      <div class="form-group">
+        <label for="expectations">Expectations from the property</label>
+        <textarea class="form-control" id="expectations" name="expectations" [(ngModel)]="rentalRequest.expectations"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="numOfPeople">Number of People Living</label>
+        <input type="number" class="form-control" id="numOfPeople" name="numOfPeople" required [(ngModel)]="rentalRequest.numOfPeople">
+      </div>
+      <div class="form-group">
+        <label for="livingType">Living Arrangement</label>
+        <select class="form-control" id="livingType" name="livingType" required [(ngModel)]="rentalRequest.livingType" (change)="onLivingTypeChange()">
+          <option value="family">Family</option>
+          <option value="bachelors">Bachelors</option>
+        </select>
+      </div>
+      <div class="form-group" *ngIf="rentalRequest.livingType === 'bachelors'">
+        <label for="bachelorType">Bachelor Type</label>
+        <select class="form-control" id="bachelorType" name="bachelorType" [(ngModel)]="rentalRequest.bachelorType">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="both">Both</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="leaseAgreement">Are you willing to sign a lease agreement?</label>
+        <select class="form-control" id="leaseAgreement" name="leaseAgreement" [(ngModel)]="rentalRequest.leaseAgreement">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="conditions">Any specific conditions or requests?</label>
+        <textarea class="form-control" id="conditions" name="conditions" [(ngModel)]="rentalRequest.conditions"></textarea>
+      </div>
+      <div class="d-flex justify-content-between">
+        <button class="btn btn-secondary" (click)="prevStep()">Back</button>
+        <button type="submit" class="btn btn-primary">Submit Request</button>
+      </div>
+    </form>
+  </div> -->
+  <div *ngIf="step === 2" class="container mt-4 step2">
+    <h2 class="mb-4 text-center">Step 2: Rental Request Form</h2>
+    <form id="rentalRequestForm" (ngSubmit)="onSubmit()" #form="ngForm">
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="fullName"
+          name="fullName"
+          required
+          minlength="3"
+          [(ngModel)]="rentalRequest.fullName"
+          #fullName="ngModel"
+          [ngClass]="{ 'is-invalid': fullName.invalid && (fullName.dirty || fullName.touched) }"
+        />
+        <div *ngIf="fullName.invalid && (fullName.dirty || fullName.touched)" class="invalid-feedback">
+          <div *ngIf="fullName.errors?.['required']">Full Name is required.</div>
+          <div *ngIf="fullName.errors?.['minlength']">Full Name must be at least 3 characters long.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="occupation">Occupation</label>
+        <input
+          type="text"
+          class="form-control"
+          id="occupation"
+          name="occupation"
+          [(ngModel)]="rentalRequest.occupation"
+          #occupation="ngModel"
+          [ngClass]="{ 'is-invalid': occupation.invalid && (occupation.dirty || occupation.touched) }"
+        />
+        <div *ngIf="occupation.invalid && (occupation.dirty || occupation.touched)" class="invalid-feedback">
+          <div *ngIf="occupation.errors?.['required']">Occupation is required.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="contactNumber">Contact Number</label>
+        <input
+          type="tel"
+          class="form-control"
+          id="contactNumber"
+          name="contactNumber"
+          required
+          pattern="^[0-9]{10}$"
+          [(ngModel)]="rentalRequest.contactNumber"
+          #contactNumber="ngModel"
+          [ngClass]="{ 'is-invalid': contactNumber.invalid && (contactNumber.dirty || contactNumber.touched) }"
+        />
+        <div *ngIf="contactNumber.invalid && (contactNumber.dirty || contactNumber.touched)" class="invalid-feedback">
+          <div *ngIf="contactNumber.errors?.['required']">Contact Number is required.</div>
+          <div *ngIf="contactNumber.errors?.['pattern']">Contact Number must be 10 digits.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="rentalHistory">Rental History</label>
+        <textarea
+          class="form-control"
+          id="rentalHistory"
+          name="rentalHistory"
+          [(ngModel)]="rentalRequest.rentalHistory"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="pets">Do you have pets?</label>
+        <input
+          type="text"
+          class="form-control"
+          id="pets"
+          name="pets"
+          [(ngModel)]="rentalRequest.pets"
+        />
+      </div>
+      <div class="form-group">
+        <label for="expectations">Expectations from the property</label>
+        <textarea
+          class="form-control"
+          id="expectations"
+          name="expectations"
+          [(ngModel)]="rentalRequest.expectations"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="numOfPeople">Number of People Living</label>
+        <input
+          type="number"
+          class="form-control"
+          id="numOfPeople"
+          name="numOfPeople"
+          required
+          min="1"
+          [(ngModel)]="rentalRequest.numOfPeople"
+          #numOfPeople="ngModel"
+          [ngClass]="{ 'is-invalid': numOfPeople.invalid && (numOfPeople.dirty || numOfPeople.touched) }"
+        />
+        <div *ngIf="numOfPeople.invalid && (numOfPeople.dirty || numOfPeople.touched)" class="invalid-feedback">
+          <div *ngIf="numOfPeople.errors?.['required']">Number of People Living is required.</div>
+          <div *ngIf="numOfPeople.errors?.['min']">At least one person must live in the property.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="livingType">Living Arrangement</label>
+        <select
+          class="form-control"
+          id="livingType"
+          name="livingType"
+          required
+          [(ngModel)]="rentalRequest.livingType"
+          (change)="onLivingTypeChange()"
+          #livingType="ngModel"
+          [ngClass]="{ 'is-invalid': livingType.invalid && (livingType.dirty || livingType.touched) }"
+        >
+          <option value="family">Family</option>
+          <option value="bachelors">Bachelors</option>
+        </select>
+        <div *ngIf="livingType.invalid && (livingType.dirty || livingType.touched)" class="invalid-feedback">
+          <div *ngIf="livingType.errors?.['required']">Living Arrangement is required.</div>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="rentalRequest.livingType === 'bachelors'">
+        <label for="bachelorType">Bachelor Type</label>
+        <select
+          class="form-control"
+          id="bachelorType"
+          name="bachelorType"
+          [(ngModel)]="rentalRequest.bachelorType"
+        >
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="both">Both</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="leaseAgreement">Are you willing to sign a lease agreement?</label>
+        <select
+          class="form-control"
+          id="leaseAgreement"
+          name="leaseAgreement"
+          required
+          [(ngModel)]="rentalRequest.leaseAgreement"
+          #leaseAgreement="ngModel"
+          [ngClass]="{ 'is-invalid': leaseAgreement.invalid && (leaseAgreement.dirty || leaseAgreement.touched) }"
+        >
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+        <div *ngIf="leaseAgreement.invalid && (leaseAgreement.dirty || leaseAgreement.touched)" class="invalid-feedback">
+          <div *ngIf="leaseAgreement.errors?.['required']">Please indicate if you are willing to sign a lease agreement.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="conditions">Any specific conditions or requests?</label>
+        <textarea
+          class="form-control"
+          id="conditions"
+          name="conditions"
+          [(ngModel)]="rentalRequest.conditions"
+        ></textarea>
+      </div>
+      <div class="d-flex justify-content-between">
+        <button type="button" class="btn btn-secondary" (click)="prevStep()">Back</button>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Submit Request</button>
+      </div>
+    </form>
+  </div>
+  
+  <div *ngIf="step === 3">
+    <div class="alert alert-info" role="alert">
+      Your request is pending approval. We will notify you once it's approved.
+    </div>
+    <button type="button" class="btn btn-primary" (click)="checkStatus()">Check Status</button>
+  </div>
+
+  <div *ngIf="step === 4">
+    <div class="alert alert-success" role="alert">
+      Your request has been approved. Please proceed to make the payment.
+    </div>
+    <button type="button" class="btn btn-primary" (click)="makePayment()">Make Payment</button>
+   
+  </div>
+
+</div>

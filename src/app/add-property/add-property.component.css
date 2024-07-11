@@ -1,0 +1,10 @@
+.form-container {
+  margin-left: 0 10%;
+    padding: 4rem;
+    background: rgb(207, 195, 213);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .addlocation{
+    background-color: rgb(65, 32, 65);
+    color: white;
+  }

@@ -1,0 +1,17 @@
+
+.property-details  {
+  margin-bottom: 2rem;
+  padding: 5rem;
+  width: 80%;
+  font-size: 12px;
+height: 150px;
+  flex-direction: row;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.map-container {
+  height: 400px; 
+  width: 100%; 
+}

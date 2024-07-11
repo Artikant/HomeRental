@@ -1,0 +1,21 @@
+{
+    "/api": {
+      "target": "https://localhost:7214", 
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug",
+      "pathRewrite": {
+        "^/api1": ""
+      }
+    },
+    "/api2": {
+    "target": "https://test.cashfree.com",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/api2": ""
+    }
+  }
+  }
+  

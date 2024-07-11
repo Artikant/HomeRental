@@ -1,0 +1,271 @@
+
+.profile-container {
+    display: flex;
+    height: 100vh;
+  } 
+  
+
+  .sidebar h3 {
+    margin-bottom: 20px;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar ul li {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .sidebar ul li:hover {
+    background-color: rgb(100, 65, 100);
+    color: #fff;
+  }
+  .sidebar ul li:active {
+    background-color:rgb(124, 80, 124);
+    color: #fff;
+  }
+
+  .main-content {
+    flex-grow: 1;
+    padding: 20px;
+  }
+  
+  .profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile-photo {
+    width: 150px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  
+  .profile-photo img {
+    width: 100%;
+    height: auto;
+  }
+  .text-danger {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .text-danger i {
+    margin-right: 8px;
+  }
+  .profile-title {
+    margin-top: -20px;
+    font-size: 24px;
+    font-weight: bold;
+    display: inline-block;
+    padding: 0 10px;
+  }
+  .top-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .top-buttons button,.removebtn {
+    padding: 10px 20px;
+    border: none;
+    background-color: rgb(100, 65, 100);
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .top-buttons button:hover,.removebtn:hover{
+    background-color: rgb(120, 119, 120);
+    color: rgb(255, 255, 255);
+  }
+  .top-buttons button:focus{
+    background-color: rgb(120, 119, 120);
+    color: rgb(255, 255, 255);
+  }
+  .content {
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 5px;
+  }
+  
+  /* Profile container styles */
+.profile-container {
+  display: flex;
+}
+
+.sidebar {
+  width: 250px;
+  background-color:rgb(100, 65, 100);
+  color:#fff;
+  padding-top:20px;
+  position: fixed;
+  height: 100%;
+  z-index: 1;
+}
+
+.profile-header {
+  margin-top: 5rem;
+  text-align: center;
+}
+
+.profile-photo img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.profile-title {
+  margin-top: 10px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 10px;
+  margin: 0px;
+  cursor: pointer;
+}
+
+.sidebar ul li:hover {
+  margin: 0;
+  background-color: rgb(120, 119, 120);
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  margin-top: 5rem;
+  margin-left:16rem;
+}
+
+.top-buttons {
+  margin-bottom: 20px;
+}
+
+.top-buttons button {
+  margin-right: 10px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.property-card {
+  display: flex;
+  margin:2rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.card-image img {
+  height: 300px;
+  width: 300px;
+  object-fit: cover;
+}
+
+.card-details {
+  display: flex;
+  flex: 1;
+  padding: 20px;
+}
+
+.card-details h3 {
+  margin: 0;
+}
+
+.card-details p {
+  margin: 5px 0;
+}
+
+.property-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .property-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .property-actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .property-actions button{
+    margin-right:2rem;
+    background-color: transparent;
+    padding: 1px;
+    border:none ;
+  }
+  .property-actions button:hover{
+    cursor: pointer;
+  }
+  .mapbtn,.contactbtn{
+    margin-right:2rem;
+    background-color: transparent;
+    padding: 1px;
+    border:none ;
+    border-bottom: 1px solid rgb(100, 65, 100);
+  }
+  .mapbtn:hover,.contactbtn:hover{
+    border-bottom: 2px solid rgb(53, 33, 53);
+  }
+  .property-card {
+    margin-left: 2rem;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  .property-card :hover{
+    background-color: rgb(238, 222, 238);
+  }
+  .property-image {
+    flex: 0 0 200px;
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .property-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .property-details {
+    flex: 1;
+    padding: 16px;
+  }
+  
+  .property-details h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+  }
+  
+  .property-details p {
+    margin: 4px 0;
+  }
+  
+  .property-details p strong {
+    font-weight: bold;
+  }

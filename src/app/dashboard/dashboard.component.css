@@ -1,0 +1,200 @@
+.price-range-container {
+  position: relative;
+}
+.form-select {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+#priceRangeInput,.form-select {
+  cursor: pointer;
+}
+.range-slider {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -88px;
+  background-color: white;
+  width: 27rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.slider-label {
+  position: absolute;
+  font-size: 15px;
+}
+
+.min-label {
+  left: 0;
+}
+
+.max-label {
+  right: 0;
+}
+
+.filter-container {
+  margin-bottom: 20px;
+  background-color:rgb(238, 222, 238);
+  padding-top:4rem;
+  padding-bottom: 0.5rem;
+}
+
+.filter-container form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.filter-container label {
+  margin-right: 10px;
+  margin-bottom: 5px;
+  margin-top: 6px;
+}
+
+.filter-container input, .filter-container select {
+  margin-right: 10px;
+    width: 150px;
+}
+
+.filter-container button {
+  padding: 5px 10px;
+  background-color: rgb(100, 65, 100);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.filter-container button:hover {
+  background-color: rgb(46, 29, 46);
+}
+
+.property-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .property-heading {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+  }
+  
+  .property-actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .property-actions button{
+    margin-right:2rem;
+    background-color: transparent;
+    padding: 1px;
+    border:none ;
+  }
+  .property-actions button:hover{
+    cursor: pointer;
+  }
+  .mapbtn,.contactbtn{
+    margin-right:2rem;
+    background-color: transparent;
+    padding: 1px;
+    border:none ;
+    border-bottom: 1px solid rgb(100, 65, 100);
+  }
+  .mapbtn:hover,.contactbtn:hover{
+    border-bottom: 2px solid rgb(53, 33, 53);
+  }
+  .property-card {
+    margin-left: 2rem;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  .property-card :hover{
+    background-color: rgb(238, 222, 238);
+  }
+  .property-image {
+    flex: 0 0 200px;
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .property-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .property-details {
+    flex: 1;
+    padding: 16px;
+  }
+  
+  .property-details h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+  }
+  
+  .property-details p {
+    margin: 4px 0;
+  }
+  
+  .property-details p strong {
+    font-weight: bold;
+  }
+  .message-input {
+    margin-top: 10px;
+  }
+  
+  .message-input textarea {
+    width: 100%;
+    height: 100px;
+    resize: vertical;
+    margin-bottom: 10px;
+  }
+  .loading-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+  }
+  
+  .spinner {
+    width: 24px;
+    height: 24px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #000;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }

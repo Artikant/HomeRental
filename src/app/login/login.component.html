@@ -1,0 +1,101 @@
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div >
+    <img src="assets/HomeRentalDashboard.jpg" alt="img" >
+  </div>
+  <div class="card p-4 shadow" style="width: 400px;">
+    <div class="text-center mb-4">
+      <img src="assets/profile_pic.png" alt="Logo" class="img-fluid mb-3 profile" style="width: 100px;">
+      <h2>Login</h2>
+    </div>
+    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="email" class="form-control" id="username" [(ngModel)]="username" name="username" required>
+        <div *ngIf="loginForm.controls['username']?.invalid && loginForm.controls['username']?.touched" class="text-danger">
+          Username is required
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" required>
+        <div *ngIf="loginForm.controls['password']?.invalid && loginForm.controls['password']?.touched" class="text-danger">
+          Password is required
+        </div>
+      </div>
+      <button type="button" class="forgotPassword" data-toggle="modal" data-target="#forgotPasswordModal">
+        Forgot Password?
+      </button>
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+      </div>
+      <div>
+        <p>No account? <a href="#">Create here</a></p>
+      </div>
+    </form>
+    <div *ngIf="loginMessage" class="alert mt-3" [ngClass]="loginMessageClass">
+      {{ loginMessage }}
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #forgotPasswordForm="ngForm" (ngSubmit)="forgotPassword(forgotPasswordForm)">
+          <div *ngIf="!showOtpField && !showNewPasswordFields">
+            <div class="mb-3">
+              <label for="username" class="form-label">Email</label>
+              <input type="email" class="form-control" id="username" [(ngModel)]="username" name="username" required>
+              <div *ngIf="forgotPasswordForm.controls['username']?.invalid && forgotPasswordForm.controls['username']?.touched" class="text-danger">
+                Valid email is required
+              </div>
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary" [disabled]="forgotPasswordForm.invalid">Submit</button>
+            </div>
+          </div>
+</form>
+          <form #otpForm="ngForm" *ngIf="showOtpField" (ngSubmit)="validateOtp(otpForm)">
+            <div class="mb-3">
+              <label for="otp" class="form-label">OTP</label>
+              <input type="text" class="form-control" id="otp" [(ngModel)]="otp" name="otp" required>
+              <div *ngIf="otpForm.controls['otp']?.invalid && otpForm.controls['otp']?.touched" class="text-danger">
+                OTP is required
+              </div>
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary" [disabled]="otpForm.invalid">Validate OTP</button>
+            </div>
+          </form>
+
+          <form #resetPasswordForm="ngForm" *ngIf="showNewPasswordFields" (ngSubmit)="resetPassword(resetPasswordForm)">
+            <div class="mb-3">
+              <label for="newPassword" class="form-label">New Password</label>
+              <input type="password" class="form-control" id="newPassword" [(ngModel)]="newPassword" name="newPassword" required>
+              <div *ngIf="resetPasswordForm.controls['newPassword']?.invalid && resetPasswordForm.controls['newPassword']?.touched" class="text-danger">
+                New password is required (min 6 characters)
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
+              <input type="password" class="form-control" id="confirmNewPassword" [(ngModel)]="confirmNewPassword" name="confirmNewPassword" required>
+              <div *ngIf="resetPasswordForm.controls['confirmNewPassword']?.invalid && resetPasswordForm.controls['confirmNewPassword']?.touched" class="text-danger">
+                Confirmation password is required
+              </div>
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary" [disabled]="resetPasswordForm.invalid">Reset Password</button>
+            </div>
+          </form>
+        <div *ngIf="forgotPasswordMessage" class="alert mt-3" [ngClass]="forgotPasswordMessageClass">
+          {{ forgotPasswordMessage }} 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

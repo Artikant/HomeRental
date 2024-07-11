@@ -1,0 +1,27 @@
+/* navbar.component.css */
+.navbar {
+  background-color:rgb(43, 25, 43) ;
+    margin-bottom: 0px;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    margin-top:0;
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+  }
+  
+  .nav-link {
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .nav-link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  #profile{
+    text-align: end;
+  }
+  

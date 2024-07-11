@@ -1,0 +1,68 @@
+<!-- profile.component.html -->
+<div class="profile-container">
+    <div class="sidebar fixed-sidebar">
+      <div class="profile-header">
+        <div class="profile-photo">
+          <img src="assets/profile_pic.png" alt="Profile Photo">
+        </div>
+        <h2 class="profile-title">Profile</h2>
+      </div>
+      <ul>
+        <li (click)="selectSection('editprofile')">Edit profile</li>
+  
+        <li (click)="selectSection('logout')">Logout</li>
+      </ul>
+    </div>
+    <div class="main-content">
+      <div class="top-buttons">
+        <button style="background-color: rgb(59, 98, 86);" (click)="selectSection('rentedProperty')">Rented
+          Properties</button>
+        <button (click)="selectSection('tenants')">Tenants</button>    
+      </div>
+      <div class="content">
+        <div *ngIf="selectedSection === 'rentedProperty'">
+            <div class="property-list">
+                <div *ngFor="let property of filteredProperties" class="property-card">
+                  <div class="property-image">
+                    <img [src]="property.imageURL" alt="{{ property.title }}">
+                  </div>
+                  <div class="property-details">
+                    <div class="property-heading">
+                      <h2>{{ property.title }}</h2>
+                    </div>
+                    <p><strong>Description:</strong> {{ property.description }}</p>
+                    <p><strong>Address:</strong> {{ property.address }}, {{ property.city }}, {{ property.state }}, {{
+                      property.postalCode }}, {{ property.country }}</p>
+                    <p><strong>Price per month:</strong> {{ property.pricePerMonth | currency:'INR' }}</p>
+                    <button class="btn btn-success" (click)="openPaymentSection(property)">Check Payments</button>
+              <div class="payment-section" >
+                <h3>Payment History</h3>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr >
+                      <!-- <td>{{ payment.date | date }}</td>
+                      <td>{{ payment.amount | currency:'INR' }}</td>
+                      <td>{{ payment.status }}</td> -->
+                    </tr>
+                  </tbody>
+                </table>
+                <button class="btn btn-primary" (click)="requestMonthlyPayment(property)">Request Monthly Payment</button>
+              </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="selectedSection === 'tenants'">
+          <h3>Rented Properties</h3>
+        </div>
+        
+      </div>
+    </div>
+  </div>

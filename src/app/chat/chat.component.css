@@ -1,0 +1,109 @@
+.container{
+  text-align: center;
+    font-size: 2rem;
+    font-family: cursive;
+}
+.chat-container {
+    max-width: 900px;
+    height: 600px;
+    max-height: 600px;
+   
+    /* padding: 20px; */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+    margin-left: 25%;
+    z-index: 4;
+  }
+  .details{
+    flex-direction: row;
+  }
+  .owner {
+    background-color: #4b2b4e;
+    color: white;
+    padding: 9px;
+    margin-bottom: 1rem;
+    border-radius: 0px;
+  }
+  
+  .owner-name {
+    text-align: left;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .owner-email,.owner-phonenumber{
+    text-align: right;
+  }
+  .chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 0px;
+    padding-right: 10px;
+  }
+  
+  .message-container {
+    margin-bottom: 10px;
+  }
+  
+  .message-sent {
+    width: 300px;
+    border-radius: 8px;
+    text-align: right;
+    background-color: #a87cca;
+    color: white;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: 1rem;
+  }
+  
+  .message-received {
+    margin-left: 1rem;
+    width: 300px;
+    border-radius: 8px;
+    text-align: left;
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 10px;
+  }
+  
+  .message-text {
+    margin-bottom: 5px;
+  }
+  
+  .message-time {
+    font-size: 0.75rem;
+    color: #666;
+  }
+  
+  .chat-input {
+    display: flex;
+    align-items: center;
+    margin: 1rem;
+  }
+  
+  .chat-input textarea {
+    resize: none;
+    flex-grow: 1;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-right: 10px;
+  }
+  
+  .chat-input button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .chat-input button:hover {
+    background-color: #45a049;
+  }
+  

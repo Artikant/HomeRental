@@ -1,0 +1,36 @@
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding-top:6rem;
+}
+
+.form-horizontal .form-group {
+    margin-bottom: 15px;
+}
+
+.form-horizontal .form-control {
+    border-radius: 0.25rem;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.img-thumbnail {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.btn-block {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.btn-outline-primary {
+    cursor: pointer;
+}
+
+.text-center {
+    text-align: center;
+}

@@ -1,0 +1,15 @@
+/* property-request-list.component.css */
+
+.card {
+    margin-bottom: 20px;
+    margin:0;
+    padding: 8rem;
+    width: 90%;
+  }
+  
+  .btn {
+    cursor: pointer;
+  }
+.container{
+  padding-top:6rem;
+}

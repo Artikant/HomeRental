@@ -1,0 +1,118 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.home {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    background-image: url('../../assets/home_pg.jpg');
+    background-size: contain; 
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+}
+
+.search-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    z-index: 1; /* Ensure it is above the overlay */
+    width: 80%;
+    max-width: 800px;
+}
+
+.search-container h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.search-options {
+    margin-bottom: 20px;
+}
+
+.search-options button {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    margin: 5px;
+    background-color: #ff6600;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.search-options button:hover {
+    background-color: #e65c00;
+}
+
+.search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-box input[type="text"] {
+    padding: 10px;
+    font-size: 1em;
+    border: none;
+    outline: none;
+    width: 50%;
+    max-width: 300px;
+}
+
+#city-search {
+    border-radius: 5px 0 0 5px;
+}
+
+#locality-search {
+    border-radius: 0 5px 5px 0;
+    margin-left: -5px; /* To blend with the city search input */
+}
+
+.search-box button {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff6600; /* Example button color */
+    color: white;
+    cursor: pointer;
+    margin-left: 10px; /* Space between input and button */
+}
+
+.search-box button:hover {
+    background-color: #e65c00; /* Darker shade on hover */
+}
+
+.continue-search {
+    margin-top: 20px;
+}
+
+.continue-search h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.previous-search p {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 0;
+}

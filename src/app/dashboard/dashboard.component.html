@@ -1,0 +1,97 @@
+<div class="filter-container">
+  <form [formGroup]="filtersForm" (ngSubmit)="applyFilters()">
+    <label for="priceRange"></label>
+    <div class="price-range-container">
+      <input
+        type="text"
+        id="priceRangeInput"
+        class="form-control"
+        [value]="'₹ ' + minValue + ' - ₹ ' + maxValue"
+        readonly
+        (click)="toggleSlider()"
+      />
+      <div class="range-slider" *ngIf="showSlider">
+        <div *ngIf="!isValidRange()" class="text-danger mt-2">Minimum price should be less than maximum price.</div>
+        <div class="slider-labels" style="background-color: white; ">
+          <div class="slider-label min-label"><p>₹ {{ minValue }}</p></div>
+          <div class="slider-label max-label"><p>₹ {{ maxValue }}</p></div>
+        </div>
+        <input 
+          type="range"
+          class="form-range"
+          id="priceRange"
+          [min]="min"
+          [max]="max"
+          [value]="minValue"
+          (input)="updateMinValue($event)"
+          style="width: 100%;"
+        />
+        <input
+          type="range"
+          class="form-range"
+          id="priceRange"
+          [min]="min"
+          [max]="max"
+          [value]="maxValue"
+          (input)="updateMaxValue($event)"
+          style="width: 100%;"
+        />
+        
+      </div>
+    </div>
+      <label for="city" class="form-label"></label>
+      <select id="city" formControlName="city" class="form-select">
+        <option value="" disabled selected hidden>Choose City</option>
+        <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+      </select>
+      <label for="bedrooms" class="form-label"></label>
+      <select id="bedrooms" formControlName="bedrooms" class="form-select">
+        <option value="" disabled selected hidden>Bedrooms</option>
+        <option value="1">1 BHK</option>
+        <option value="2">2 BHK</option>
+        <option value="3">3 BHK</option>
+        <option value="4">4 BHK</option>
+      </select>
+    <button type="submit">Apply Filters</button>
+  </form>
+</div>
+
+
+<div class="property-list">
+  <div *ngFor="let property of filteredProperties" class="property-card">
+      
+      <div class="property-image">
+        <img [src]="property.imageURL" alt="{{ property.title }}">
+      </div>
+      <div class="property-details">
+        <div class="property-heading">
+          <h2>{{ property.title }}</h2>
+          <div class="property-actions">
+            <button class="share-btn" (click)="shareProperty(property)">
+              <i class="fas fa-share-alt"></i> 
+            </button>
+            <button *ngIf="!isLoggedIn()" class="favorite-btn" (click)="addToFavorites(property)">
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
+      </div>
+        <p><strong>Description:</strong> {{ property.description }}</p>
+        <p><strong>Address:</strong> {{ property.address }}, {{ property.city }}, {{ property.state }}, {{ property.postalCode }}, {{ property.country }}</p>
+        <p><strong>Bedrooms:</strong> {{ property.numberOfBedrooms }}</p>
+        <p><strong>Bathrooms:</strong> {{ property.numberOfBathrooms }}</p>
+        <p><strong>Price per month:</strong> {{ property.pricePerMonth | currency:'INR' }}</p>
+        <p><strong>Status:</strong> {{ property.availabilityStatus }}</p>
+        <button class="mapbtn" (click)="selectProperty(property)">View Location</button>
+        <div *ngIf="isLoading" class="loading-indicator">
+          <div class="spinner"></div>
+          <span>Sending mail...</span>
+        </div>
+        <button class="contactbtn" (click)="sendMessage(property.propertyID)">Contact Seller</button>
+  
+  <div *ngIf="activePropertyId === property.propertyID" class="message-input">
+    <textarea [(ngModel)]="message" placeholder="Type your message..."></textarea>
+    <button (click)="contactSeller(property.propertyID)" class="btn btn-light">Send</button>
+  </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,160 @@
+<div class="container form-container">
+    <h2 class="mb-4 text-center">Add Property</h2>
+    <form #propertyForm="ngForm" (ngSubmit)="onSubmit(propertyForm)">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" ngModel required>
+            <div *ngIf="propertyForm.submitted && propertyForm.controls['title']?.errors" class="text-danger">
+                Title is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="description" ngModel required></textarea>
+            <div *ngIf="propertyForm.submitted && propertyForm.controls['description'].errors" class="text-danger">
+                Description is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Address</label>
+            <textarea class="form-control" id="address" name="address" ngModel required></textarea>
+            <div *ngIf="propertyForm.submitted && propertyForm.controls['address'].errors" class="text-danger">
+                Address is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="country">Country</label>
+            <input type="text" class="form-control" id="country" name="country" ngModel required>
+            <div *ngIf="propertyForm.submitted && propertyForm.controls['country'].errors" class="text-danger">
+                Country is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="state">State</label>
+            <input type="text" class="form-control" id="state" name="state" ngModel required>
+            <div *ngIf="propertyForm.submitted && propertyForm.controls['state'].errors" class="text-danger">
+                State is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" class="form-control" id="city" name="city" ngModel required>
+            <div *ngIf="propertyForm.submitted && propertyForm.controls['city'].errors" class="text-danger">
+                City is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="postalCode">Postal Code</label>
+            <input type="text" class="form-control" id="postalCode" name="postalCode" ngModel required pattern="^[0-9]{6}$">
+            <div *ngIf="propertyForm.submitted && propertyForm.controls['postalCode'].errors" class="text-danger">
+                Valid Postal Code is required (6 digits).
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="propertyType">Property Type</label>
+            <select class="form-control" id="propertyType" name="propertyType" ngModel required>
+                <option value="" disabled selected>Select Property Type</option>
+                <option value="apartment">Apartment</option>
+                <option value="house">House</option>
+                <option value="villa">Villa</option>
+                <option value="flat">Flat</option>
+            </select>
+            <div *ngIf="propertyForm.submitted && propertyForm.controls['propertyType'].errors" class="text-danger">
+                Property Type is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="bedrooms">Number of Bedrooms</label>
+            <input type="number" class="form-control" id="bedrooms" name="bedrooms" ngModel required min="1">
+            <div *ngIf="propertyForm.submitted && propertyForm.controls['bedrooms'].errors" class="text-danger">
+                Number of Bedrooms is required and must be at least 1.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="bathrooms">Number of Bathrooms</label>
+            <input type="number" class="form-control" id="bathrooms" name="bathrooms" ngModel required min="1">
+            <div *ngIf="propertyForm.submitted && propertyForm.controls['bathrooms'].errors" class="text-danger">
+                Number of Bathrooms is required and must be at least 1.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price per Month</label>
+            <input type="number" class="form-control" id="price" name="price" ngModel required min="1">
+            <div *ngIf="propertyForm.submitted && propertyForm.controls['price'].errors" class="text-danger">
+                Price per Month is required and must be positive.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="availabilityStatus">Availability Status</label>
+            <select class="form-control" id="availabilityStatus" name="availabilityStatus" ngModel required>
+                <option value="" disabled selected>Select Availability Status</option>
+                <option value="available">Available</option>
+                <option value="rented">Rented</option>
+            </select>
+            <div *ngIf="propertyForm.submitted && propertyForm.controls['availabilityStatus'].errors" class="text-danger">
+                Availability Status is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="locality">Locality</label>
+            <input type="text" class="form-control" id="locality" name="locality" ngModel required>
+            <div *ngIf="propertyForm.submitted && propertyForm.controls['locality'].errors" class="text-danger">
+                Locality is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="imageURL">Image URL</label>
+            <input type="text" class="form-control" id="imageURL" name="imageURL" ngModel required pattern="https?://.+">
+            <div *ngIf="propertyForm.submitted && propertyForm.controls['imageURL'].errors" class="text-danger">
+                Valid Image URL is required.
+            </div>
+        </div>
+
+        <!-- Uncomment these sections if you need file uploads
+        <div class="form-group">
+            <label for="photos">Photos</label>
+            <input type="file" class="form-control" id="photos" (change)="onFileSelected($event)" multiple>
+            <button class="btn btn-primary mt-2" (click)="triggerFileInput()">Upload Photos</button>
+        </div>
+
+        <div class="form-group">
+            <label for="coverImage">Cover Image</label>
+            <input type="file" class="form-control" id="coverImage" (change)="onCoverImageSelected($event)">
+        </div>
+        -->
+        <div class="form-group">
+            <label for="latitude">Latitude</label>
+            <input type="number" class="form-control" id="latitude" name="latitude" ngModel required>
+            <div *ngIf="propertyForm.submitted && propertyForm.controls['latitude'].errors" class="text-danger">
+                Latitude is required.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="longitude">Longitude</label>
+            <input type="number" class="form-control" id="longitude" name="longitude" ngModel required>
+            <div *ngIf="propertyForm.submitted && propertyForm.controls['longitude'].errors" class="text-danger">
+                Longitude is required.
+            </div>
+        </div>
+
+
+        <button type="button" class="btn mb-3 addlocation" (click)="openMap()">Add Location on Map</button>
+
+        <div id="map" style="height: 400px; display: none;"></div>
+        <button type="submit" class="btn btn-success btn-block mt-4">Submit</button>
+    </form>
+</div>

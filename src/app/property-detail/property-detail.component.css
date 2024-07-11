@@ -1,0 +1,118 @@
+/* .property-detail {
+    padding: 20px;
+  }
+  
+  .top-details {
+    margin-bottom: 20px;
+  }
+  
+  .property-images {
+    margin-bottom: 20px;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .image-gallery {
+    display: flex;
+  }
+  
+  .image {
+    margin-right: 10px;
+  }
+  
+  .image img {
+    width: 200px;
+    height: auto;
+    border-radius: 5px;
+  }
+  
+  .additional-details {
+    margin-top: 20px;
+  }
+  
+  .additional-details h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  .card {
+    margin-top: 20px;
+  }
+  .bd-placeholder-img {
+    width: 700px;
+    height: 500px;
+  } */
+
+  /* Example CSS */
+  .progress-container {
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .progress-wrapper {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+  }
+  
+  ngb-progressbar {
+    height: 10px;
+    border-radius: 0;
+  }
+  
+  .step-icons {
+    display: flex;
+    justify-content: space-between;
+    z-index: 2;
+    position: relative;
+    padding: 0 20px;
+  }
+  
+  .circle-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ccc;
+    transition: border-color 0.3s;
+    background-color: white;
+  }
+  
+  .circle-img.active {
+    border-color: #28a745;
+  }
+  
+  .circle-img .step-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .circle-img + p {
+    margin-top: 8px;
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Center the container */
+.centered-container {
+
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 7rem;
+}
+.step2{
+  border-radius: 2rem;
+  padding: 1rem;
+  background-color: rgb(215, 199, 215);
+}

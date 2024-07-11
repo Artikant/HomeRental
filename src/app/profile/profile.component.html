@@ -1,0 +1,295 @@
+<!-- profile.component.html -->
+<div class="profile-container">
+  <div class="sidebar fixed-sidebar">
+    <div class="profile-header">
+      <div class="profile-photo">
+        <img src="assets/profile_pic.png" alt="Profile Photo">
+      </div>
+      <h2 class="profile-title">Profile</h2>
+    </div>
+    <ul>
+      <li (click)="selectSection('editprofile')">Edit profile</li>
+
+      <li (click)="selectSection('logout')">Logout</li>
+    </ul>
+  </div>
+  <div class="main-content">
+    <div class="top-buttons">
+      <button style="background-color: rgb(59, 98, 86);" (click)="selectSection('contactedProperty')">Contacted
+        Properties</button>
+      <button (click)="selectSection('rentedproperty')">Rented Properties</button>
+      <button (click)="selectSection('transactions')">Transactions</button>
+      <button (click)="selectSection('favourites')">Favourites</button>
+      <button (click)="selectSection('reviews')">Reviews</button>
+    </div>
+    <div class="content">
+      <div *ngIf="selectedSection === 'contactedProperty'">
+
+        <div *ngFor="let property of filteredProperties" class="property-card">
+
+
+          <div class="card-image">
+            <img [src]="property.imageURL" alt="Property Image">
+          </div>
+
+          <div class="card-details">
+            <div class="card-property-details">
+              <h3>{{ property.title }}</h3>
+              <p>{{ property.description }}</p>
+              <p><strong>Address:</strong> {{ property.address }}</p>
+              <p><strong>City:</strong> {{ property.city }}</p>
+              <p><strong>Price per Month:</strong> {{ property.pricePerMonth | currency: 'INR' }}</p>
+              <button class="btn btn-success me-2" (click)="navigateToChat(property)">Chat with Owner</button>
+            </div>
+            <div class="card-owner">
+              <p><strong>Owner Name:</strong> {{ property.ownerName }}</p>
+              <p><strong>Owner Contact:</strong> {{ property.phoneNumber }}</p>
+              <div *ngIf="property.isRented; else notRented">
+                <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> This property is already
+                  rented</span>
+              </div>
+              <ng-template #notRented>
+                <!-- <p>{{property.propertyID}}</p> -->
+                <a id="propdetails" [routerLink]="'/property/' + property.propertyID">Checkout</a>
+
+              </ng-template>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div *ngIf="selectedSection === 'rentedproperty'">
+        <h3>Rented Properties</h3>
+
+        <div *ngFor="let property of rentedProperties" class="property-card">
+          <div class="card-image">
+            <img [src]="property.imageURL" alt="Property Image">
+          </div>
+          <div class="card-details">
+            <div class="card-property-details">
+              <h3>{{ property.title }}</h3>
+              <p>{{ property.description }}</p>
+              <p><strong>Address:</strong> {{ property.address }}</p>
+              <p><strong>City:</strong> {{ property.city }}</p>
+              <p><strong>Price per Month:</strong> {{ property.pricePerMonth | currency: 'INR'}}</p>
+            </div>
+            <div class="card-owner">
+
+              <p><strong>Owner Name:</strong> {{ property.ownerName }}</p>
+              <p><strong>Owner Contact:</strong> {{ property.phoneNumber }}</p>
+              <ng-container *ngIf="findBookingsByPropertyId(property.propertyID).length > 0">
+                <div *ngFor="let booking of findBookingsByPropertyId(property.propertyID)" class="booking-info">
+                  <!-- <p><strong>Booking ID:</strong> {{ booking.bookingId }}</p> -->
+                  <div *ngIf="booking.bookingId === userpaymnet.bookingId && userpaymnet.status === 'Pending'"
+                    class="alert alert-warning payment-due">
+                    <p>{{ pendingpayment }}</p>
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <p class="mb-0"><strong>Amount:</strong> {{ userpaymnet.amount | currency: 'INR' }}</p>
+                        <p class="mb-0"><strong>Due Date:</strong> {{ userpaymnet.dueDate | date: 'shortDate' }}</p>
+                      </div>
+                      <div><button class="btn btn-success mb-0 me-0" (click)="monthlypaynow(userpaymnet)">Pay now</button></div>
+                    </div>  
+
+                  </div>
+                  <div *ngIf="booking.bookingId === userpaymnet.bookingId && userpaymnet.status !== 'Pending'"
+                  class="alert alert-success payment-due">
+                  <p>No payment due</p>
+                  </div>
+                  <button class="btn btn-secondary me-2" (click)="paynow(booking.bookingId)">pay</button>
+                  <button class="btn btn-primary" (click)="generatePDF(property.propertyID)">Download Rental Agreement
+                    PDF</button><br>
+                  <button *ngIf="!checkTerminationStatus(booking.bookingId)" class="btn btn-danger mt-2"
+                    (click)="openTerminationModal(property, booking)">Terminate Rent Agreement</button>
+                  <button *ngIf="checkTerminationStatus(booking.bookingId)" class="btn btn-success mt-2">Download lease
+                    termination letter </button>
+                </div>
+              </ng-container>
+
+            </div>
+
+
+            <div class="modal" id="terminationModal" tabindex="-1" role="dialog" aria-labelledby="terminationModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="terminationModalLabel">Terminate Rental Agreement</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                      (click)="closeTerminationModal()">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form (submit)="submitTerminationForm()">
+                      <div class="form-group">
+                        <div *ngIf="loginMessage" class="alert mt-3" [ngClass]="loginMessageClass">
+                          {{ loginMessage }}
+                        </div>
+                        <label for="terminationDate">Termination Date:</label>
+                        <input type="date" id="terminationDate" name="terminationDate" class="form-control"
+                          [(ngModel)]="terminationDate" required (change)="checkTerminationDate()"
+                          #terminationDateField="ngModel">
+                        <div
+                          *ngIf="terminationDateField.invalid && (terminationDateField.dirty || terminationDateField.touched)"
+                          class="alert alert-danger">
+                          Termination date cannot be before today's date.
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="terminationReason">Reason for Termination:</label>
+                        <textarea id="terminationReason" name="terminationReason" class="form-control"
+                          [(ngModel)]="terminationReason" rows="4" required></textarea>
+                      </div>
+                      <!-- <button *ngIf="!loginMessage && terminationDate" type="button" class="btn btn-secondary me-2" (click)="generateRentalTerminatePDF()">Generate
+                        PDF</button> -->
+                      <button type="button" class="btn btn-primary ms-2" (click)="terminatemodal()"
+                        [disabled]="!terminationDate">Submit</button>
+                    </form>
+                    <!-- <div *ngIf="pdfSrc ">
+                    <h5>PDF Preview:</h5>
+                    <iframe [src]="pdfSrc" width="100%" height="400px" style="color:black;"></iframe>
+                  </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" id="terminateModal" tabindex="-1" role="dialog"
+              aria-labelledby="terminateModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="terminateModalLabel">Confirm Deletion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Are you sure you want to terminate this rental property : {{property.title}} ??</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" (click)="submitTerminationForm()">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div id="pdf-container" style="visibility: hidden; position: absolute; ">
+        <div id="pdf-content" #pdfContent>
+          <h1 class="text-center">RENTAL AGREEMENT</h1>
+          <p><strong>Owner:</strong> <span id="ownerName">{{ selectedProperty?.sellerName }}</span></p>
+          <p><strong>Tenant:</strong> <span id="tenantName">{{ selectedProperty?.sellerContact }}</span></p>
+          <p><strong>Property Address:</strong> <span id="propertyAddress">{{ selectedProperty?.propertyAddress
+              }}</span></p>
+          <p><strong>City:</strong> <span id="propertyCity">{{ selectedProperty?.propertyCity }}</span></p>
+          <p><strong>Price per Month:</strong> <span id="propertyPrice">{{ selectedProperty?.propertyPricePerMonth|
+              currency:'INR' }}</span></p>
+
+
+          <p><strong>Description:{{selectedProperty?.propertyDescription}}</strong></p>
+          <p>This RENTAL AGREEMENT is executed at on this (Date) day of (Month), (Year) by
+            and between:
+            {{ selectedProperty?.sellerName }},
+            {{ selectedProperty?.sellerContact }},
+            (hereinafter jointly and severally called the “OWNER”, which expression shall include their
+            heirs, legal representatives, successors and assigns) of the ONE PART:
+            AND, in favour of:
+            (Name of the Tenant),
+            S/o or D/o. (Father’s Name of the Tenant),
+            Working/Studying at (Address of the Office/Studying Institution)
+            having a permanent address at Complete permanent Address of the Tenant
+            (hereinafter called the “TENANT”, which expression shall include its legal representatives,
+            successors and assigns) of the OTHER PART.
+            WHEREAS the Owner is the absolute owner of the property situated at (Complete Address of
+            the Rented Property) as detailed in Annexure-I, hereinafter referred to as "Demised Premises".
+            WHEREAS the Tenant has requested the Owner to grant Rent with respect to the Schedule
+            Premises and the Owner has agreed to rent out to the Tenant the Property with two-wheeler and
+            four-wheeler parking space in the ground floor for residential purposes only, on the following
+            terms and conditions:<br>
+            NOW THIS DEED WITNESSETH AS FOLLOWS:<br>
+            1. The rent in respect of the “Demised Premises” shall commence from (Starting Date of
+            Agreement) and shall be valid till (Expiry Date of Agreement). Thereafter, the same may be
+            extended further on mutual consent of both the parties.<br>
+            2. That the Tenant shall pay to the Owner a monthly rent of Rs.(Amount of rent in Numbers),
+            excluding electricity and water bill. The rent shall be paid on or before 7th day of each month
+            without fail.<br>
+            3. That the Tenant shall pay to the Owner a monthly maintenance charge of Rs.(Amount in
+            Numbers) towards the maintenance of Generator & Elevator, Salaries towards guards, Charges
+            for Electricity Maintenance for Common Areas, Charges towards cleaning of Common Areas
+            and towards maintaining the lawn.<br>
+            4. That the Tenant shall pay for the running cost of elevator and generator separately to the
+            Owner.<br>
+            5. That during the Rent period, in addition to the rental amount payable to the Owner, the Tenant
+            shall pay for the use of electricity and water as per bills received from the authorities concerned
+            directly. For all the dues of electricity bills and water bills till the date the possession of the
+            premises is handed over by the Owner to the Tenant it is the responsibility of the Owner to pay
+            and clear them according to the readings on the respective meters. At the time of handing over
+            possession of the premises back to the Owner by Tenant, it is the responsibility of the Tenant to
+            pay electricity & water bills, as presented by the Departments concerned according to the
+            readings on the respective meters upto the date of vacation of the property.<br>
+            6. The Tenant will pay to the Owner an interest-free refundable security deposit of Rs.(Amount
+            in Numbers) vide cheque no (Cheque Number) dated (date of the cheque) at the time of signing
+            the Rent Agreement. The said amount of the Security deposit shall be refunded by the Owner to
+            the Tenant at the time of handing over possession of the demised premises by the Tenant upon
+            expiry or sooner termination of this Rent after adjusting any dues (if any) or cost towards
+            damages caused by the negligence of the Tenant or the person he is responsible for, normal wear
+            & tear and damages due to act of god exempted. In case the Owner fails to refund the security
+            deposit to the Tenant on early termination or expiry of the Rent agreement, the Tenant is entitled
+            to hold possession of the Rented premises, without payment of rent and/or any other charges
+            whatsoever, till such time the Owner refunds the security deposit to the Tenant. This is without
+            prejudice and in addition to the other remedies available to the Tenant to recover the amount
+            from the Owner.<br>
+            7. That all the sanitary, electrical and other fittings and fixtures and appliances in the premises
+            shall be handed over from the Owner to the Tenant in good working condition.<br>
+            8. That the Tenant shall not sublet, assign or part with the demised premises in whole or part
+            thereof to any person in any circumstances whatsoever and the same shall be used for the
+            bonafide residential purposes only.<br>
+            9. That the day-to-day minor repairs will be the responsibility for the Tenant at his/her own
+            expense. However, any structural or major repairs, if so required, shall be carried out by the
+            Owner.<br>
+            10. That no structural additions or alterations shall be made by the Tenant in the premises
+            without the prior written consent of the Owner but the Tenant can install air-conditioners in the
+            space provided and other electrical gadgets and make such changes for the purposes as may be
+            necessary, at his own cost. On termination of the tenancy or earlier, the Tenant will be entitled to
+            remove such equipment and restore the changes made, if any, to the original state.<br>
+            11. That the Rent Agreement will be registered in front of the Registrar and the charges towards
+            stamp duty, court fee & lawyer/coordinator will be equally borne by the Owner and Tenant.
+            ANNEXURE-I<br>
+            The (Complete Address) of the Property, consisting (Number of Bedrooms) bedrooms, living
+            room, family lounge, kitchen, servant room and inbuilt fittings & fixtures and inventory of
+            (Number of Fans), (Number of CFL Lights), (Number of Geyser), (Number of Mirrors).
+            IN WITNESS WHEREOF BOTH PARTIES AGREES AND SIGNS THIS AGREEMENT
+            ON THIS DAY AND YEAR
+            WITNESSES:<br>
+            1. (Name of the Witness)<br>
+            (Signature of the Witness)<br>
+            (Address of the Witness)<br>
+            2. (Name of the Witness)<br>
+            (Signature of the Witness)<br>
+            (Address of the Witness)<br>
+            (Signature of the Owner) (Signature of the Tenant)<br>
+            (Name of the Owner) (Name of the Tenant)<br>
+            OWNER TENANT</p>
+          <p>{{ selectedProperty?.propertyDescription }}</p>
+        </div>
+      </div>
+      <div *ngIf="selectedSection === 'transactions'">
+        <h3>Transactions</h3>
+        <div *ngFor="let transaction of transactions" class="transaction-card">
+          <div class="transaction-details">
+            <h4 class="transaction-title">{{ transaction.title }}</h4>
+            <p class="transaction-date">{{ transaction.startDate | date }}</p>
+          </div>
+          <div class="transaction-amount">
+            <p>{{ transaction.amount| currency: 'INR' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,90 @@
+<!-- property-request-list.component.html -->
+<!-- 
+<div class="container">
+    <div class="row">
+      <div class="col-md-9" *ngFor="let request of requests">
+        <div class="card mb-3">
+          <div class="card-body">
+            <p class="card-text"><strong>Full Name:</strong> {{ request.fullName }}</p>
+            <p class="card-text"><strong>Occupation:</strong> {{ request.occupation }}</p>
+            <p class="card-text"><strong>Contact Number:</strong> {{ request.contactNumber }}</p>
+            <p class="card-text"><strong>Pets:</strong> {{ request.pets }}</p>
+            <p class="card-text"><strong>Number of People:</strong> {{ request.numOfPeople }}</p>
+            <p class="card-text"><strong>Living Type:</strong> {{ request.livingType }}</p>
+            <p class="card-text"><strong>Bachelor Type:</strong> {{ request.bachelorType }}</p>
+            <p class="card-text"><strong>Lease Agreement:</strong> {{ request.leaseAgreement }}</p>
+            <p class="card-text"><strong>Submission Date:</strong> {{ request.submissionDate | date }}</p>
+            <hr>
+            <button class="btn btn-success mr-2" (click)="approveRequest(request.userId)">Approve</button>
+            <button class="btn btn-danger mr-2" (click)="rejectRequest(request.userId)">Reject</button>
+            <button class="btn btn-primary">See Property</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <div class="container">
+    <!-- <h2>Requests for Property #{{ propertyId }}</h2> -->
+    <div *ngIf="requests && requests.length > 0">
+      <table class="table table-bordered mt-6">
+        <thead class="thead-light">
+          <tr>
+            <th>Full Name</th>
+            <th>Contact Number</th>
+            <th>occupation</th>
+            <th>livingType</th>
+            <th>leaseAgreement</th>
+            <th>pets</th>
+            <th>Status</th>
+            <th>Property</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let request of requests">
+            <!-- <td>{{ request.requestFormId }}</td> -->
+            <td>{{ request.fullName }}</td>
+            <td>{{ request.contactNumber }}</td>
+            <td>{{ request.occupation }}</td>
+            <td>{{ request.livingType }}</td>
+            <td>{{ request.leaseAgreement }}</td>
+            <td>{{ request.pets }}</td>
+            <td>{{request.status}}</td>
+            <td>{{ request.title }}</td>
+            <!-- <td>{{ request.status }}</td> -->
+            <td>
+              <!-- <button class="btn btn-primary mr-2" (click)="showTenant(request.userId)">Tenant Details</button> -->
+              <button *ngIf="request.status!='approved'"  class="btn btn-success mr-2" (click)="approveRequest(request.requestFormId)" >Approve</button>
+              <button *ngIf="request.status!='approved'"  class="btn btn-danger" >Reject</button>
+              <button *ngIf="request.status=='approved'"  class="btn btn-danger" >Cancel</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="!requests || requests.length === 0">
+      <p>No requests found for this property.</p>
+    </div>
+  </div>
+  
+  <!-- <div class="modal fade" id="tenantDetailsModal" tabindex="-1" role="dialog" aria-labelledby="tenantDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="tenantDetailsModalLabel">Tenant Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Name:</strong> {{ tenant?.fullName }}</p>
+          <p><strong>Contact Number:</strong> {{ tenant?.contactNumber }}</p>
+          <p><strong>Email:</strong> {{ tenant?.email }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  

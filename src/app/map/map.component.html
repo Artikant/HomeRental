@@ -1,0 +1,11 @@
+<div class="map-property">
+<div class="property-details" *ngIf="property">
+    <h3>{{ property.title }}</h3>
+    <p>Description: {{ property.description }}</p>
+    <p>Address: {{ property.address }}, {{ property.city }}, {{ property.state }}, {{ property.postalCode }}, {{ property.country }}</p>
+  </div>
+  
+  <div class="map-container">
+    <div id="map" style="height: 800px;"></div>
+  </div>
+</div>

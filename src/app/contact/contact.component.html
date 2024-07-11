@@ -1,0 +1,35 @@
+<!-- contact.component.html -->
+<div class="contact-container">
+    <div class="contact-header">
+      <h1>Contact Us</h1>
+      <p>We'd love to hear from you!</p>
+    </div>
+    <div class="contact-content">
+      <div class="contact-info">
+        <h2>Get in Touch</h2>
+        <p>If you have any questions, feedback, or just want to say hello, feel free to reach out to us:</p>
+        <p><strong>Email:</strong> artikant232002&#64;gmail.com</p>
+        <p><strong>Phone:</strong> 9409985881</p>
+        <p><strong>Address:</strong> 45,swaminarayan Society, Thaltej,Ahemdabad,Gujarat</p>
+      </div>
+      <div class="contact-form">
+        <h2>Contact Form</h2>
+        <form (submit)="onSubmit(contactForm)" #contactForm="ngForm">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" ngModel required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" ngModel required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" ngModel required></textarea>
+          </div>
+          <button type="submit" [disabled]="contactForm.invalid">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

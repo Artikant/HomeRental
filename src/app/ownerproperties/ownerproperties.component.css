@@ -1,0 +1,95 @@
+
+.property-list {
+    margin-top:1rem ;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .property-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .property-actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .property-actions button{
+    margin-right:2rem;
+    background-color: transparent;
+    padding: 1px;
+    border:none ;
+  }
+  .property-actions button:hover{
+    cursor: pointer;
+  }
+  .mapbtn,.contactbtn{
+    margin-right:2rem;
+    background-color: transparent;
+    padding: 1px;
+    border:none ;
+    border-bottom: 1px solid rgb(100, 65, 100);
+  }
+  .mapbtn:hover,.contactbtn:hover{
+    border-bottom: 2px solid rgb(53, 33, 53);
+  }
+  .property-card {
+    margin-left: 2rem;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  .property-card :hover{
+    background-color: rgb(238, 222, 238);
+  }
+  .property-image {
+    flex: 0 0 200px;
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .property-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .property-details {
+    flex: 1;
+    padding: 16px;
+  }
+  
+  .property-details h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+  }
+  
+  .property-details p {
+    margin: 4px 0;
+  }
+  
+  .property-details p strong {
+    font-weight: bold;
+  }
+  .edit-del{
+    text-align: end;
+  }
+  .edit-del i{
+    padding: 0.5rem;
+    margin-right:0.5rem;
+  }
+  .edit-del i:hover{
+    cursor: pointer;
+  }
+  .addproperty{
+    background-color: rgb(59, 30, 59);
+    color: white;
+    margin-left: 2rem;
+    margin-top:5rem;
+    margin-bottom: 0;
+  }

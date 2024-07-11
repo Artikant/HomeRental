@@ -1,0 +1,44 @@
+<div class="chat-container mt-6">
+  <!-- Left pane: List of chats -->
+  <div class="chat-list p-5">
+    <div *ngFor="let chat of messages" class="chat-item" (click)="selectChat(chat)">
+      <div class="chat-user">
+        {{ ownerUserId === chat.senderId ? chat.receiver?.name : chat.sender?.name }}
+      </div>
+      <div class="last-message">
+        {{ chat.messageText }}
+      </div>
+      <div class="message-time" style="text-align: right;">
+        {{ chat.timestamp| date: 'medium' }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Right pane: Selected chat display -->
+  <div class="chat-display">
+    <button *ngIf="selectedChat" class="back-button" (click)="deselectChat()">Back</button>
+    <div *ngIf="!selectedChat" class="img-container">
+      <img src="assets/HomeRentalDashboard.jpg" class="img-fluid" alt="Select a chat">
+    </div>    
+    <div *ngIf="selectedChat" class="chat-content p-5">
+      <div *ngFor="let message of selectedChat" class="message-item" 
+           [ngClass]="{'message-sent': message.senderId === ownerId, 'message-received': message.senderId !== ownerId}">
+        <div class="message-user">
+          {{ ownerUserId !== message.senderId ? message.receiver?.name : message.sender?.name }}
+        </div>
+        <div class="message-content"> 
+          {{ message.messageText }}
+        </div>
+        <div class="message-time">
+          {{ message.timestamp | date: 'medium' }}
+        </div>
+      </div>
+      <div *ngIf="selectedChat" class="chat-input">
+        <textarea class="form-control" rows="3" placeholder="Type your message..." [(ngModel)]="newMessage"></textarea>
+        <button (click)="sendMessage()">
+          <i class="fas fa-paper-plane" style="border-radius: 50%;"></i>
+        </button>
+      </div>
+    </div>
+  </div> 
+</div>
